@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# install node modules
+npm install
+
 # create postgreSQL server
 docker-compose up -d
 
