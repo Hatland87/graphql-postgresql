@@ -19,3 +19,20 @@ model Book {
   title    String
   author   Author @relation(fields: [authorId], references: [id])
 }
+
+model Course {
+  code    String
+  id      Int       @default(autoincrement()) @id
+  name    String
+  lectures Lecture[]
+}
+
+model Lecture {
+  courseId Int
+  duration Int
+  id       Int      @default(autoincrement()) @id
+  teacher  String
+  time     DateTime
+  title    String
+  course   Course   @relation(fields: [courseId], references: [id])
+}
