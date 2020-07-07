@@ -3,14 +3,18 @@ const { PrismaClient } = require('@prisma/client')
 
 const Query = require('./resolvers/Query')
 const Mutation = require('./resolvers/Mutation')
-const Author = require('./resolvers/Author')
-const Book = require('./resolvers/Book')
+const Course = require('./resolvers/Course')
+const Lecture = require('./resolvers/Lecture')
+const Semester = require('./resolvers/Semester')
+const Teacher = require('./resolvers/Teacher')
 
 const resolvers = {
     Query,
     Mutation,
-    Author,
-    Book,
+    Course,
+    Lecture,
+    Semester,
+    Teacher
 }
 
 const prisma = new PrismaClient()
