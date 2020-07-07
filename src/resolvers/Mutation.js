@@ -1,21 +1,44 @@
-async function addAuthor(parent, args, context, info) {
-    return await context.prisma.author.create({
+async function addCourses(parent, args, context, info) {
+    return await context.prisma.course.create({
+        data: {
+            code: args.code,
+            name: args.name
+        }
+    })
+}
+
+async function addSemester(parent, args, context, info) {
+    return await context.prisma.semester.create({
         data: {
             name: args.name
         }
     })
 }
 
-async function addBook(parent, args, context, info) {
-    return await context.prisma.book.create({
+async function addTeacher(parent, args, context, info) {
+    return await context.prisma.teacher.create({
         data: {
+            name: args.name
+        }
+    })
+}
+
+async function addLecture(parent, args, context, info) {
+    return await context.prisma.lecture.create({
+        data: {
+            duration: args.duration,
+            time: args.title,
             title: args.title,
-            author: { connect: { id: args.authorId } }
+            course: { connect: { id: args.courseId } },
+            semester: { connect: { id: args.semesterId } },
+            teacher: { connect: { id: args.teacherId } },
         }
     })
 }
 
 module.exports = {
-    addAuthor,
-    addBook
+    addCourses,
+    addLecture,
+    addSemester,
+    addTeacher
 }

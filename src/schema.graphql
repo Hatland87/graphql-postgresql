@@ -1,21 +1,42 @@
 type Query {
-    books: [Book!]
-    authors: [Author!]
+    courses: [Course!]
+    lectures: [Lecture!]
+    semesters: [Semester!]
+    teachers: [Teacher!]
 }
 
 type Mutation {
-    addAuthor(name: String!): Author!
-    addBook(title: String!, authorId: Int!): Book!
+    addCourses(code: String!, name: String!): Course!
+    addLecture(duration: Int!, time: String!, title: String!, courseId: Int!, semesterId: Int!, teacherId: Int!): Lecture!
+    addSemester(name: String!): Semester!
+    addTeacher(name: String!): Teacher!
 }
 
-type Book {
+type Course {
     id: ID!
-    title: String!
-    author: Author
+    code: String!
+    name: String!
+    lectures: [Lecture!]
 }
 
-type Author {
+type Lecture {
+    id: ID!
+    duration: Int!
+    timeOfRecording: String!
+    title: String!
+    course: Course!
+    semester: Semester!
+    teacher: Teacher!
+}
+
+type Semester {
     id: ID!
     name: String!
-    books: [Book!]!
+    lectures: [Lecture!]
+}
+
+type Teacher {
+    id: ID!
+    name: String!
+    lectures: [Lecture!]
 }

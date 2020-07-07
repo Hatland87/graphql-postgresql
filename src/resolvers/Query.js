@@ -1,12 +1,22 @@
-async function books(parent, args, context, info) {
-    return await context.prisma.book.findMany()
+async function courses(parent, args, context, info) {
+    return await context.prisma.course.findMany()
 }
 
-async function authors(parent, args, context, info) {
-    return await context.prisma.author.findMany()
+async function lectures(parent, args, context, info) {
+    return await context.prisma.lecture.findMany()
+}
+
+async function semesters(parent, args, context, info) {
+    return await context.prisma.semester.findMany()
+}
+
+async function teachers(parent, args, context, info) {
+    return await context.prisma.teacher.findMany()
 }
 
 module.exports = {
-    books,
-    authors
+    courses,
+    lectures,
+    semesters,
+    teachers
 }

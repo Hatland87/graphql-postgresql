@@ -8,18 +8,33 @@ datasource db {
 }
 
 model Course {
-  code    String
+  code    String    @unique
   id      Int       @default(autoincrement()) @id
   name    String
-  lectures Lecture[]
+  lecture Lecture[]
 }
 
 model Lecture {
-  courseId Int
-  duration Int
-  id       Int      @default(autoincrement()) @id
-  teacher  String
-  time     DateTime
-  title    String
-  course   Course   @relation(fields: [courseId], references: [id])
+  courseId        Int
+  duration        Int
+  id              Int      @default(autoincrement()) @id
+  semesterId      Int
+  teacherId       Int
+  timeofrecording DateTime
+  title           String
+  course          Course   @relation(fields: [courseId], references: [id])
+  semester        Semester @relation(fields: [semesterId], references: [id])
+  teacher         Teacher  @relation(fields: [teacherId], references: [id])
+}
+
+model Semester {
+  id      Int       @default(autoincrement()) @id
+  name    String    @unique
+  lecture Lecture[]
+}
+
+model Teacher {
+  id      Int       @default(autoincrement()) @id
+  name    String    @unique
+  lecture Lecture[]
 }
