@@ -7,19 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Author {
-  id   Int    @default(autoincrement()) @id
-  name String
-  book Book[]
-}
-
-model Book {
-  authorId Int
-  id       Int    @default(autoincrement()) @id
-  title    String
-  author   Author @relation(fields: [authorId], references: [id])
-}
-
 model Course {
   code    String
   id      Int       @default(autoincrement()) @id
