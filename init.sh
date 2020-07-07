@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# install node modules
-npm install
-
 # create postgreSQL server
 docker-compose up -d
+
+# wait for the database to be ready
+sleep 2
 
 # create database tables from schema file
 psql -h localhost -d bookstore -U user -f postgreSQL/schema.sql
