@@ -14,3 +14,6 @@ npx prisma introspect
 
 # reads Prisma schema and grenerate Prisma Client library
 npx prisma generate
+
+# imports courses
+node src/database/addCourseFromFile.js 
