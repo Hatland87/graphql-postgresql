@@ -3,10 +3,8 @@
     When there is multiple teachers, they are usualy separated with ',' 'og' '/'
 */
 
-
-
-require('dotenv').config()
 const db = require('../database/dbConnect')
+const { addTeacher } = require('./addTeacher')
 const debug = require('debug')('server:database:findTeacher')
 
 
@@ -43,28 +41,11 @@ async function findOneTeacherInDatabase(name) {
 
   // if teacher not in database, add teacher to database
   if (res.rows.length == 0) {
-    res = await addTeacherToDatabase(name)
+    res = await addTeacher(name)
   } 
 
   debug('Function response', res.rows[0].id)
   return res.rows[0].id
-}
-
-async function addTeacherToDatabase(name) {
-
-  try {
-    await db.query('BEGIN')
-    debug('Adding', name, 'to database')
-    const queryText = 'INSERT INTO "public"."Teacher" (name) VALUES($1) RETURNING id'
-    const res = await db.query(queryText, [name])
-    await db.query('COMMIT')
-    debug('Response after adding', res.rows)
-    return res
-
-  } catch (e) {
-    await db.query('ROLLBACK')
-    throw e
-  }
 }
 
 module.exports = { findTeacher }
