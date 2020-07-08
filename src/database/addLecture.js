@@ -5,12 +5,12 @@
 const db = require('../database/dbConnect')
 const debug = require('debug')('server:database:addLecture')
 
-async function addLecture({timeOfRecording, duration, title, audioLink, cameraLink, screenLink, combinedLink}) {
+async function addLecture({audiolink, cameralink, combinedlink, duration, screenlink, timeOfRecording, title}, courseId, semesterId) {
     
     try {
       await db.query('BEGIN')
-      const queryText = 'INSERT INTO "public"."Lecture" (timeOfRecording, duration, title, audioLink, cameraLink, screenLink, combinedLink) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING id'
-      const res = await db.query(queryText, [timeOfRecording, duration, title, audioLink, cameraLink, screenLink, combinedLink])
+      const queryText = 'INSERT INTO "public"."Lecture" (audiolink, cameralink, combinedlink, courseId, duration, screenlink, semesterId, timeOfRecording, title) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id'
+      const res = await db.query(queryText, [audiolink, cameralink, combinedlink, courseId, duration, screenlink, semesterId, timeOfRecording, title])
       await db.query('COMMIT')
       debug('Response after adding', res.rows[0])
       return res.rows[0].id

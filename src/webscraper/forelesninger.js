@@ -12,7 +12,7 @@ const { findCourse } = require('../database/findCourse');
 const { findSemester } = require('../database/findSemester');
 const { findTeacher } = require('../database/findTeacher');
 const { addLecture } = require('../database/addLecture');
-const { addLectureMeta } = require('../database/addLectureMeta');
+const { addLectureToTeacher } = require('../database/addLectureToTeacher');
 const { addUncategorized } = require('../database/addUncategorized');
 const debug = require('debug')('server:webscraper:forelesning')
 
@@ -46,26 +46,27 @@ async function grabPage(dom) {
     teacher: page[row].getElementsByTagName('td')[2].innerHTML,
     title: page[row].getElementsByTagName('td')[3].innerHTML,
     course: page[row].getElementsByTagName('td')[4].innerHTML,
-    audioLink: baseURL + links[1],
-    cameraLink: baseURL + links[5],
-    screenLink: baseURL + links[9],
-    combinedLink: baseURL + links[13]
+    audiolink: baseURL + links[1],
+    cameralink: baseURL + links[5],
+    screenlink: baseURL + links[9],
+    combinedlink: baseURL + links[13]
     }
 
     debug('Adding element', row+1)
     const courseId = await findCourse(courseObj.course)
     const semesterId = await findSemester(courseObj.timeOfRecording)
     const teacherId = await findTeacher(courseObj.teacher)
-    const lectureId = await addLecture(courseObj)
-
-    for (i in teacherId) {
-      if (courseId) {
-        addLectureMeta(courseId, lectureId, semesterId, teacherId[i])
-        debug('Added', courseObj)
-      } else {
-        addUncategorized(courseObj)
-        debug('Added to uncategorized', courseObj)
+    
+    if (courseId) {
+      const lectureId = await addLecture(courseObj, courseId, semesterId)
+      debug('Added', courseObj)
+      for (i in teacherId) {
+        await addLectureToTeacher(lectureId, teacherId[i])
       }
+    } else {
+      addUncategorized(courseObj, semesterId)
+      debug('Added to uncategorized', courseObj)
     }
+
   }
 }

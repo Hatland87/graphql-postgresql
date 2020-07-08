@@ -5,12 +5,12 @@
 const db = require('../database/dbConnect')
 const debug = require('debug')('server:database:addUncategorized')
 
-async function addUncategorized({timeOfRecording, duration, teacher, title, course, audioLink, cameraLink, screenLink, combinedLink}) {
+async function addUncategorized({audiolink, cameralink, combinedlink, course, duration, screenlink, teacher, timeOfRecording, title}, semesterId) {
     
     try {
       await db.query('BEGIN')
-      const queryText = 'INSERT INTO "public"."UncategorizedLecture" (timeOfRecording, duration, teacher, title, course, audioLink, cameraLink, screenLink, combinedLink) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id'
-      const res = await db.query(queryText, [timeOfRecording, duration, teacher, title, course, audioLink, cameraLink, screenLink, combinedLink])
+      const queryText = 'INSERT INTO "public"."UncategorizedLecture" (audiolink, cameralink, combinedlink, course, duration, screenlink, semesterid, teachers, timeOfRecording, title) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING id'
+      const res = await db.query(queryText, [audiolink, cameralink, combinedlink, course, duration, screenlink, semesterId, teacher, timeOfRecording, title])
       await db.query('COMMIT')
       debug('Response after adding', res.rows[0])
       return res.rows[0].id

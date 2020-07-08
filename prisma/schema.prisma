@@ -1,8 +1,4 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
+datasource postgresql {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
@@ -11,55 +7,47 @@ model Course {
   code        String        @unique
   id          Int           @default(autoincrement()) @id
   name        String
-  lectureMeta LectureMeta[]
-}
-
-model Lecture {
-  audiolink       String
-  cameralink      String
-  combinedlink    String
-  duration        Int
-  id              Int           @default(autoincrement()) @id
-  screenlink      String
-  timeofrecording DateTime
-  title           String
-  lectureMeta     LectureMeta[]
-}
-
-model LectureMeta {
-  courseid   Int
-  lectureid  Int
-  semesterid Int
-  teacherid  Int
-  course     Course   @relation(fields: [courseid], references: [id])
-  lecture    Lecture  @relation(fields: [lectureid], references: [id])
-  semester   Semester @relation(fields: [semesterid], references: [id])
-  teacher    Teacher  @relation(fields: [teacherid], references: [id])
-
-  @@id([courseid, lectureid, semesterid, teacherid])
+  lectures    Lecture[]
 }
 
 model Semester {
   id          Int           @default(autoincrement()) @id
   name        String        @unique
-  lectureMeta LectureMeta[]
 }
 
 model Teacher {
   id          Int           @default(autoincrement()) @id
   name        String        @unique
-  lectureMeta LectureMeta[]
+  lectures    Lecture[]     @relation(references: [id])
+}
+
+model Lecture {
+  id              Int       @default(autoincrement()) @id
+  timeofrecording DateTime
+  duration        Int
+  course          Course    @relation(fields: [courseid], references: [id])
+  courseid        Int
+  semester        Semester  @relation(fields: [semesterid], references: [id])
+  semesterid      Int
+  teachers        Teacher[] @relation(references: [id])
+  title           String
+  audiolink       String
+  cameralink      String
+  screenlink      String
+  combinedlink    String
 }
 
 model UncategorizedLecture {
+  id              Int       @default(autoincrement()) @id
+  timeofrecording DateTime
+  duration        String
+  course          String
+  semester        Semester  @relation(fields: [semesterid], references: [id])
+  semesterid      Int
+  teachers        String
+  title           String
   audiolink       String
   cameralink      String
-  combinedlink    String
-  course          String
-  duration        Int
-  id              Int      @default(autoincrement()) @id
   screenlink      String
-  teacher         String
-  timeofrecording DateTime
-  title           String
+  combinedlink    String
 }
