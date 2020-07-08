@@ -6,13 +6,11 @@ docker-compose up -d
 # wait for the database to be ready
 sleep 2
 
-# create database tables from schema file
-psql -h localhost -d bookstore -U user -f postgreSQL/schema.sql
+# map your data model to the database schema
+npx prisma migrate save --name init --experimental
+npx prisma migrate up --experimental
 
-# reads the database tabels and translate from SQL to Prisma data model
-npx prisma introspect
-
-# reads Prisma schema and grenerate Prisma Client library
+# This command reads your Prisma schema and generates your Prisma Client library into node_modules/@prisma/client
 npx prisma generate
 
 # imports courses
