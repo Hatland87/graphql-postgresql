@@ -26,7 +26,7 @@ CREATE TABLE "public"."Lecture" (
 );
 
 CREATE TABLE "public"."LectureMeta" (
-  PRIMARY KEY (courseId, lectureId, semesterId, teacherId),
+  id SERIAL PRIMARY KEY NOT NULL,
   courseId INTEGER NOT NULL,
   lectureId INTEGER NOT NULL,
   semesterId INTEGER NOT NULL,

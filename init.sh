@@ -17,3 +17,6 @@ npx prisma generate
 
 # imports courses
 node src/database/addCourseFromFile.js 
+
+# import lectures
+DEBUG=server:webscraper:forelesning node src/webscraper/forelesninger.js 
