@@ -1,4 +1,5 @@
 const db = require('../database/dbConnect')
+const debug = require('debug')('server:database:addCourseFromFile')
 const fs = require('fs')
 
 fs.readFile('data/courses.txt',(err, data) => {
@@ -16,6 +17,7 @@ fs.readFile('data/courses.txt',(err, data) => {
 async function sendToDB(line) {
 
     try {
+      debug('Adding', line)
       await db.query('BEGIN')
       const queryText = 'INSERT INTO "public"."Course" (code, name) VALUES($1, $2)'
       await db.query(queryText, line)
