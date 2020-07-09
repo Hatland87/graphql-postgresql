@@ -1,22 +1,13 @@
 type Query {
-    courses: [Course!]
-    lectures: [LectureMeta!]
+    semester(name: String!): Semester!
     semesters: [Semester!]
-    teachers: [Teacher!]
-}
-
-type Mutation {
-    addCourses(code: String!, name: String!): Course!
-    addLecture(duration: Int!, time: String!, title: String!, courseId: Int!, semesterId: Int!, teacherId: Int!): Lecture!
-    addSemester(name: String!): Semester!
-    addTeacher(name: String!): Teacher!
-}
-
-type LectureMeta {
-    course: Course!
-    lecture: Lecture!
-    semester: Semester!
-    teacher:
+    course(code: String): Course!
+    courses: [Course!]!
+    teacher(name: String!): Teacher
+    teachers: [Teacher!]!
+    lecture(teacher: String, course: String, semester: String): [Lecture]!
+    lectures: [Lecture!]!
+    uncategorized: [UncategorizedLecture]
 }
 
 type Course {
@@ -28,12 +19,24 @@ type Course {
 
 type Lecture {
     id: ID!
-    duration: Int!
     timeOfRecording: String!
-    title: String!
+    duration: Int!
     course: Course!
     semester: Semester!
-    teacher: Teacher!
+    teachers: [Teacher!]! 
+    title: String!
+    links: Link!
+}
+
+type UncategorizedLecture {
+    id: ID!
+    timeOfRecording: String!
+    duration: String!
+    course: String!
+    semester: Semester!
+    teachers: String!
+    title: String!
+    links: Link!
 }
 
 type Semester {
@@ -44,6 +47,13 @@ type Semester {
 
 type Teacher {
     id: ID!
-    name: String!
+    name: String
     lectures: [Lecture!]
+}
+
+type Link {
+    audiolink: String!
+    cameralink: String!
+    screenlink: String!
+    combinedlink: String!
 }
