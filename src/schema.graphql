@@ -1,9 +1,12 @@
 type Query {
-    allCourses: [Course]!
+    allCourses: [Course!]!
     course(code: String, name: String): [Course]!
+    allLectures: [Lecture!]!
+    lecture(course: String, semester: String teacher: String): [Lecture]!
+    allSemesters: [Semester!]!
     semester(name: String!): [Semester!]
-    teacher(name: String!): [Teacher!]
     allTeachers: [Teacher!]
+    teacher(name: String!): [Teacher!]
 }
 
 type Course {

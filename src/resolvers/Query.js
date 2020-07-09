@@ -11,16 +11,20 @@ async function course(parent, args, context, info) {
     })
 }
 
-async function semester(parent, args, context, info) {
-    return await context.prisma.semester.findMany({
-        where: {
-            name: { contains: args.name }
-        }
-    })
+async function allLectures(parent, args, context, info) {
+    return await context.prisma.lecture.findMany()
 }
 
-async function teacher(parent, args, context, info) {
-    return await context.prisma.teacher.findMany({
+async function lecture(parent, args, context, info) {
+    return await context.prisma.lecture.findMany()
+}
+
+async function allSemesters(parent, args, context, info) {
+    return await context.prisma.semester.findMany()
+}
+
+async function semester(parent, args, context, info) {
+    return await context.prisma.semester.findMany({
         where: {
             name: { contains: args.name }
         }
@@ -31,10 +35,20 @@ async function allTeachers(parent, args, context, info) {
     return await context.prisma.teacher.findMany()
 }
 
+async function teacher(parent, args, context, info) {
+    return await context.prisma.teacher.findMany({
+        where: {
+            name: { contains: args.name }
+        }
+    })
+}
 
 module.exports = {
     allCourses,
     course,
+    allLectures,
+    lecture,
+    allSemesters,
     semester,
     allTeachers,
     teacher,
