@@ -1,14 +1,7 @@
 type Query {
-    teacher(name: String!): [Teacher!]
-    teachers: [Teacher!]
     semester(name: String!): [Semester!]
-}
-
-type LectureMeta {
-    course: Course!
-    lecture: Lecture!
-    semester: Semester!
-    teacher: Teacher
+    teacher(name: String!): [Teacher!]
+    allTeachers: [Teacher!]
 }
 
 type Course {

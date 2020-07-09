@@ -14,7 +14,7 @@ async function teacher(parent, args, context, info) {
     })
 }
 
-async function teachers(parent, args, context, info) {
+async function allTeachers(parent, args, context, info) {
     return await context.prisma.teacher.findMany()
 }
 
@@ -22,5 +22,5 @@ async function teachers(parent, args, context, info) {
 module.exports = {
     semester,
     teacher,
-    teachers
+    allTeachers
 }
