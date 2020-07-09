@@ -10,7 +10,7 @@ sleep 2
 psql -h localhost -d bookstore -U user -f postgreSQL/schema2.sql
 
 # reads the database tabels and translate from SQL to Prisma data model
-npx prisma introspect
+# npx prisma introspect
 
 # reads Prisma schema and grenerate Prisma Client library
 npx prisma generate

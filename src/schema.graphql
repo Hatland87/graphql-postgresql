@@ -17,7 +17,6 @@ type Lecture {
     id: ID!
     duration: Int!
     timeOfRecording: String!
-    title: String!
     course: Course!
     semester: Semester!
     teacher: Teacher!
