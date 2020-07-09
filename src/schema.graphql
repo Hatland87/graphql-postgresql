@@ -1,22 +1,13 @@
 type Query {
-    courses: [Course!]
-    lectures: [LectureMeta!]
-    semesters: [Semester!]
+    teacher(name: String!): [Teacher!]
     teachers: [Teacher!]
-}
-
-type Mutation {
-    addCourses(code: String!, name: String!): Course!
-    addLecture(duration: Int!, time: String!, title: String!, courseId: Int!, semesterId: Int!, teacherId: Int!): Lecture!
-    addSemester(name: String!): Semester!
-    addTeacher(name: String!): Teacher!
 }
 
 type LectureMeta {
     course: Course!
     lecture: Lecture!
     semester: Semester!
-    teacher:
+    teacher: Teacher
 }
 
 type Course {
