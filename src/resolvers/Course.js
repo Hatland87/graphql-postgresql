@@ -3,5 +3,4 @@ function lectures (parent, args, context) {
 }
 
 module.exports = {
-  lectures
 }

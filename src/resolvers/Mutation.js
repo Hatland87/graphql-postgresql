@@ -37,8 +37,4 @@ async function addLecture(parent, args, context, info) {
 }
 
 module.exports = {
-    addCourses,
-    addLecture,
-    addSemester,
-    addTeacher
 }

@@ -11,7 +11,4 @@ function semester (parent, args, context) {
 }
 
 module.exports = {
-  course,
-  teacher,
-  semester
 }
