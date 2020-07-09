@@ -10,7 +10,6 @@ const Teacher = require('./resolvers/Teacher')
 
 const resolvers = {
     Query,
-    Mutation,
     Course,
     Lecture,
     Semester,
