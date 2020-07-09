@@ -22,12 +22,15 @@ async function findCourse(str) {
   debug([str.split(' ',2).join('')], 'query returs', res2.rows[0])
 
   if (res1.rows[0]) {
+    debug('Function returns', res1.rows[0].id)
     return res1.rows[0].id
 
-  } else if (res1.rows[0]) {
+  } else if (res2.rows[0]) {
+    debug('Function returns', res2.rows[0].id)
     return res2.rows[0].id
     
   } else {
+    debug('Function returns', false)
     return false
   }
 }
