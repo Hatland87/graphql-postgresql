@@ -19,4 +19,4 @@ npx prisma generate
 DEBUG=server* node src/database/addCourseFromFile.js 
 
 # import lectures
-DEBUG=server* node src/webscraper/forelesninger.js 
+DEBUG=server:webscraper* node src/webscraper/forelesninger.js 
