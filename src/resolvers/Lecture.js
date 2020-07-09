@@ -1,9 +1,17 @@
 function course (parent, args, context) {
-  return context.prisma.course.findOne({ where: { courseid: parent.id }})
+  return context.prisma.course.findOne({ where: { id: parent.courseid }})
 }
 
 function teacher (parent, args, context) {
-  return context.prisma.teacher.findOne({ where: { id: parent.id }})
+  return context.prisma.teacher.findMany({ 
+    where: { 
+      course: {
+        every: {
+          id: parent.id 
+        }
+      }
+    }
+  })
 }
 
 function semester (parent, args, context) {
@@ -12,5 +20,6 @@ function semester (parent, args, context) {
 
 module.exports = {
   course,
+  teacher,
   semester,
 }
