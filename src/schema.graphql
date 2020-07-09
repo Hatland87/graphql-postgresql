@@ -19,6 +19,7 @@ type Lecture {
     course: Course!
     semester: Semester!
     teacher: Teacher!
+    links: Link!
 }
 
 type Semester {
@@ -31,4 +32,11 @@ type Teacher {
     id: ID!
     name: String!
     lectures: [Lecture!]
+}
+
+type Link {
+    audiolink: String!
+    cameralink: String!
+    combinedlink: String!
+    screenlink: String!
 }
