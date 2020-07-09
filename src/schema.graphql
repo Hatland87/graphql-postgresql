@@ -1,4 +1,6 @@
 type Query {
+    allCourses: [Course]!
+    course(code: String, name: String): [Course]!
     semester(name: String!): [Semester!]
     teacher(name: String!): [Teacher!]
     allTeachers: [Teacher!]
