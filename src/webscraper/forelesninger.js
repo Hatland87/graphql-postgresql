@@ -26,11 +26,9 @@ function openPage(pageNumber) {
 
     // if there is 4 links at the top
     if (dom.window.document.getElementsByClassName('paginator')[0].getElementsByTagName('a').length <= 4) {
-      //openPage(pageNumber + 1)
-      //console.log(pageNumber)
-    } else {
-      //console.log(pageNumber)
+      openPage(pageNumber + 1)
     }
+    
   });
 }
 
