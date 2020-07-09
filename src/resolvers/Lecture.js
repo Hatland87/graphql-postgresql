@@ -7,9 +7,10 @@ function teacher (parent, args, context) {
 }
 
 function semester (parent, args, context) {
-  return context.prisma.semester.findOne({ where: { id: parent.id }})
+  return context.prisma.semester.findOne({ where: { semesterid: parent.id }})
 }
 
 module.exports = {
   course,
+  semester,
 }
