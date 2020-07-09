@@ -10,6 +10,7 @@
 */
 
 const db = require('../database/dbConnect')
+const { addSemester } = require('./addSemester')
 const debug = require('debug')('server:database:findSemester')
 
 async function findSemester(timeOfRecording) {
@@ -22,27 +23,9 @@ async function findSemester(timeOfRecording) {
 
   // if semester not in database, add semester to database
   if (res.rows.length == 0) {
-    res = await addSemesterToDatabase(semester)
+    res = await addSemester(semester)
   } 
   return res.rows[0].id
-}
-
-async function addSemesterToDatabase(semester) {
-
-  debug('Adding', semester, 'to database')
-
-  try {
-    await db.query('BEGIN')
-    const queryText = 'INSERT INTO "public"."Semester" (name) VALUES($1) RETURNING id'
-    const res = await db.query(queryText, [semester])
-    await db.query('COMMIT')
-    debug('Response after adding', res.rows)
-    return res
-
-  } catch (e) {
-    await db.query('ROLLBACK')
-    throw e
-  }
 }
 
 function springOrFall (timeOfRecording) {
