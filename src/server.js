@@ -10,14 +10,24 @@ const Teacher = require('./resolvers/Teacher')
 
 const resolvers = {
     Query,
-    Mutation,
     Course,
     Lecture,
     Semester,
     Teacher
 }
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({
+    log: [
+        {
+            emit: 'event',
+            level: 'query',
+        },
+        ],
+})
+
+prisma.on('query', e => {
+    e.query, console.log(e)
+  })
 
 const server = new GraphQLServer({
     typeDefs: './src/schema.graphql',
