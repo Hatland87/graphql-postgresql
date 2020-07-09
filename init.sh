@@ -14,7 +14,7 @@ npx prisma migrate up --experimental
 npx prisma generate
 
 # imports courses
-node src/database/addCourseFromFile.js 
+DEBUG=server* node src/database/addCourseFromFile.js 
 
 # import lectures
-DEBUG=server:webscraper:forelesning node src/webscraper/forelesninger.js 
+DEBUG=server* node src/webscraper/forelesninger.js 
